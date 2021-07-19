@@ -1,0 +1,16 @@
+{
+    "name": "SCA Agent Scan",
+    "description": "SCA Agent Scan workflow template",
+    "iconName": "veracode",
+    "categories": [
+        "Python",
+        "PHP",
+        "JavaScript",
+        "TypeScript",
+        "HTML",
+        "HTML+Django",
+        "HTML+PHP",
+        "JavaScript+ERB",
+        "Java"
+    ]
+}

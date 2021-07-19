@@ -1,4 +1,8 @@
 # This workflow will initiate a Veracode Static Analysis Pipeline scan, return a results.json and convert to SARIF for upload as a code scanning alert
+# Requires the following secrets:
+# VERACODE_API_ID - https://help.veracode.com/r/t_create_api_creds
+# VERACODE_API_KEY - https://help.veracode.com/r/t_create_api_creds
+# VERACODE_APP_ID - application id for use in Veracode Analytics
 
 name: Veracode Static Analysis Pipeline Scan
 
@@ -7,9 +11,13 @@ name: Veracode Static Analysis Pipeline Scan
 on:
   workflow_dispatch:
   push:
-    branches: [ master ]
+    branches:
+      - master
+      - main      
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
+      - main  
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
