@@ -11,9 +11,6 @@
         "HTML",
         "HTML+Django",
         "HTML+PHP",
-        "JavaScript+ERB",
-        "PLSQL",
-        "Perl",
-        "VBScript"
+        "JavaScript+ERB"
     ]
 }
