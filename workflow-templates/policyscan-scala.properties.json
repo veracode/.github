@@ -1,0 +1,8 @@
+{
+    "name": "Policy Scan",
+    "description": "Policy Scan workflow template for Scala applications using sbt",
+    "iconName": "veracode",
+    "categories": [
+        "Scala"
+    ]
+}

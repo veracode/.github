@@ -1,0 +1,8 @@
+{
+    "name": "Pipeline Scan",
+    "description": "Pipeline Scan workflow template for Scala applications built with SBT",
+    "iconName": "veracode",
+    "categories": [
+        "Scala"
+    ]
+}
