@@ -3,6 +3,7 @@
     "description": "Pipeline Scan workflow template for Java applications",
     "iconName": "veracode",
     "categories": [
-        "Java"
+        "Java",
+        "Kotlin"
     ]
 }

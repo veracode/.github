@@ -11,9 +11,9 @@ name: Veracode Static Analysis Pipeline Scan
 on:
   workflow_dispatch:
   push:
-    branches: [ master ]
+    branches: [ master, main ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, main ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -28,16 +28,38 @@ jobs:
     - uses: actions/setup-java@v1 # Make java accessible on path so the uploadandscan action can run.
       with: 
         java-version: '8'
+        
+    - name: Check for Maven build
+      id: check_maven
+      uses: andstor/file-existence-action@v1
+      with:
+        files: "pom.xml"
 
-    - name: Build with Maven
+    - name: Check for Gradle build
+      id: check_gradle
+      uses: andstor/file-existence-action@v1
+      with:
+        files: "build.gradle"
+
+    - name: Build application with mvn
+      if: steps.check_maven.outputs.files_exists == 'true'
       run: mvn -B package --file pom.xml
 
+    - name: Build application with gradle
+      if: steps.check_gradle.outputs.files_exists == 'true'
+      run: gradle clean build
+
+    # zip the project and move it to a staging directory
+    - name: Zip Project
+      run: zip -R project.zip '*.jar' '*.war'
+      env:
+        build-name: project.zip   
       
     - name: Archive package
       uses: actions/upload-artifact@v2
       with:
         name: CodePackage
-        path: '**/*.war'
+        path: 'project.zip'
   
   pipeline-scan:
     needs: build
@@ -57,7 +79,7 @@ jobs:
     - name: Pipeline Scan
       run: |
         cd /github/home
-        java -jar /opt/veracode/pipeline-scan.jar --veracode_api_id="${{secrets.VERACODE_API_ID}}" --veracode_api_key="${{secrets.VERACODE_API_KEY}}" --fail_on_severity="Very High, High" --file="*.war" --app_id="${{secrets.VERACODE_APP_ID}}" --json_output_file="results.json"
+        java -jar /opt/veracode/pipeline-scan.jar --veracode_api_id="${{secrets.VERACODE_API_ID}}" --veracode_api_key="${{secrets.VERACODE_API_KEY}}" --fail_on_severity="Very High, High" --file="project.zip" --app_id="${{secrets.VERACODE_APP_ID}}" --json_output_file="results.json"
       continue-on-error: true
 
     - uses: actions/upload-artifact@v2

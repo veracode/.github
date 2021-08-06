@@ -3,6 +3,7 @@
     "description": "Policy Scan workflow template for applications that use zip file packaging",
     "iconName": "veracode",
     "categories": [
-        "Java"
+        "Java",
+        "Kotlin"
     ]
 }
