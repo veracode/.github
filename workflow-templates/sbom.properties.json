@@ -1,0 +1,16 @@
+{
+    "name": "Generate SBOM",
+    "description": "Uses Veracode SBOM API to save CycloneDX format SBOM as a build artifact",
+    "iconName": "veracode",
+    "categories": [
+        "Python",
+        "PHP",
+        "JavaScript",
+        "TypeScript",
+        "HTML",
+        "HTML+Django",
+        "HTML+PHP",
+        "JavaScript+ERB",
+        "Java"
+    ]
+}
